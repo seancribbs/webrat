@@ -43,7 +43,7 @@ module Webrat
       
       fields.each do |field|
         next if field.to_param.nil?
-        merge(all_params, field.to_param)
+        merge_hash_values(all_params, field.to_param)
       end
       
       all_params
@@ -57,16 +57,13 @@ module Webrat
       Webrat::XML.attribute(@element, "action").blank? ? @session.current_url : Webrat::XML.attribute(@element, "action")
     end
     
-    def merge(all_params, new_param)
-      new_param.each do |key, value|
-        case all_params[key]
-        when *hash_classes
-          merge_hash_values(all_params[key], value)
-        when Array
-          all_params[key] += value
-        else
-          all_params[key] = value
-        end
+    def merge_array_values(a, b)
+      value = b.shift
+      target = a.last
+      if target.is_a?(Hash) && target.keys.all? { |key| !value.key?(key) }
+        merge_hash_values(target, value)
+      else
+        a << value
       end
     end
   
@@ -78,7 +75,7 @@ module Webrat
             a[k] = merge_hash_values(a[k], b[k])
             b.delete(k)
           when [Array, Array]
-            a[k] += b[k]
+            merge_array_values(a[k], b[k])
             b.delete(k)
           end
         end
