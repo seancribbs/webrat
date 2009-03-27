@@ -329,7 +329,7 @@ describe "click_button" do
     click_button
   end
   
-  it "should correctly send a very complex set a parameters" do
+  it "should correctly send a very complex set of parameters" do
     with_html File.read(File.join(File.dirname(__FILE__), "radiant-page.html"))
     webrat_session.should_receive(:post).with("/admin/pages", {
       "page" => {
