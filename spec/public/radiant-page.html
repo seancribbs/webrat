@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang='en-US' xml:lang='en-US' xmlns='http://www.w3.org/1999/xhtml'>
+  <body>
+    <div id='page'>
+      <div id='main'>
+        <div id='content'>
+          <h1>
+            New Page
+          </h1>
+          <form action="/admin/pages" enctype="multipart/form-data" id="new_page" method="post">
+            <input id="page_lock_version" name="page[lock_version]" type="hidden" value="0" /> <input id="page_parent_id" name="page[parent_id]" type="hidden" />
+            <div class='form-area'>
+              <p class='title'>
+                <label for='page_title'>Page Title</label> <input class="textbox" id="page_title" maxlength="255" name="page[title]" size="255" type="text" value="My page"/>
+              </p>
+              <div class='row' id='extended-metadata' style='display:none'>
+                <table class='fieldset'>
+                  <tr>
+                    <th class='label'>
+                      <label for='page_slug'>Slug</label>
+                    </th>
+                    <td class='field'>
+                      <input class="textbox" id="page_slug" maxlength="100" name="page[slug]" size="100" type="text" value="/" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class='label'>
+                      <label for='page_breadcrumb'>Breadcrumb</label>
+                    </th>
+                    <td class='field'>
+                      <input class="textbox" id="page_breadcrumb" maxlength="160" name="page[breadcrumb]" size="160" type="text" value="My page"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class='label'>
+                      <label for='page_description'>Description</label>
+                    </th>
+                    <td class='field'>
+                      <input class="textbox" id="page_description" maxlength="200" name="page[description]" size="200" type="text" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class='label'>
+                      <label for='page_keywords'>Keywords</label>
+                    </th>
+                    <td class='field'>
+                      <input class="textbox" id="page_keywords" maxlength="200" name="page[keywords]" size="200" type="text" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <p class='more-or-less'>
+                <small><a href='#' id='more-extended-metadata' onclick="Element.toggle('extended-metadata'); Element.toggle('more-extended-metadata'); Element.toggle('less-extended-metadata');" name="more-extended-metadata">More</a> <a href='#' id='less-extended-metadata' onclick="Element.toggle('extended-metadata'); Element.toggle('more-extended-metadata'); Element.toggle('less-extended-metadata');" style='display:none' name="less-extended-metadata">Less</a></small>
+              </p>
+              <div id='tab-control'>
+                <div class='tabs' id='tabs'>
+                  <div id='tab-toolbar'>
+                    <a href="#" onclick="toggle_add_part_popup(); return false;" title="Add Tab"><img alt="plus" src="/Users/seancribbs/projects/radiant/radiant/public/images/admin/plus.png?1217182863&quot;" /></a> <a href="#" onclick="if(confirm('Delete the current tab?')) { tabControl.removeTab(tabControl.selected) }; return false;" title="Remove Tab"><img alt="minus" src="/Users/seancribbs/projects/radiant/radiant/public/images/admin/minus.png?1217182863&quot;" /></a>
+                  </div>
+                </div>
+                <div class='pages' id='pages'>
+                  <div class='page' id='page-body'>
+                    <div class='part' id='part-body'>
+                      <input id="part_body_name" name="page[parts][][name]" type="hidden" value="body" />
+                      <p>
+                        <label for='part_body_filter_id'>Filter</label> <select id="part_body_filter_id" name="page[parts][][filter_id]">
+                          <option value="" selected="selected">
+                            &lt;none&gt;
+                          </option>
+                          <option value="Markdown">
+                            Markdown
+                          </option>
+                          <option value="SmartyPants">
+                            SmartyPants
+                          </option>
+                          <option value="Textile">
+                            Textile
+                          </option>
+                        </select> <span id='reference-links'>Reference: <span id='filter-reference-link-body'><a href="#" onclick="load_filter_reference('body');; return false;">Filter</a></span> <span id='tag-reference-link-body'><a href="#" onclick="load_tag_reference('body');; return false;">Available Tags</a></span></span>
+                      </p>
+                      <div>
+                        <textarea class="textarea" id="part_body_content" name="page[parts][][content]" style="width: 100%">Under construction</textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='page' id='page-extended'>
+                    <div class='part' id='part-extended'>
+                      <input id="part_extended_name" name="page[parts][][name]" type="hidden" value="extended" />
+                      <p>
+                        <label for='part_extended_filter_id'>Filter</label> <select id="part_extended_filter_id" name="page[parts][][filter_id]">
+                          <option value="" selected="selected">
+                            &lt;none&gt;
+                          </option>
+                          <option value="Markdown">
+                            Markdown
+                          </option>
+                          <option value="SmartyPants">
+                            SmartyPants
+                          </option>
+                          <option value="Textile">
+                            Textile
+                          </option>
+                        </select> <span id='reference-links'>Reference: <span id='filter-reference-link-extended'><a href="#" onclick="load_filter_reference('extended');; return false;">Filter</a></span> <span id='tag-reference-link-extended'><a href="#" onclick="load_tag_reference('extended');; return false;">Available Tags</a></span></span>
+                      </p>
+                      <div>
+                        <textarea class="textarea" id="part_extended_content" name="page[parts][][content]" style="width: 100%">foobar</textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='row'>
+                <p>
+                  <label for='page_layout_id'>Layout</label> <select id="page_layout_id" name="page[layout_id]">
+                    <option value="">
+                      &lt;inherit&gt;
+                    </option>
+                    <option value="7308716">
+                      Main
+                    </option>
+                    <option value="17537865">
+                      UTF8
+                    </option>
+                  </select>
+                </p>
+                <p>
+                  <label for='page_class_name'>Page Type</label> <select id="page_class_name" name="page[class_name]">
+                    <option value="">
+                      &lt;normal&gt;
+                    </option>
+                    <option value="ArchivePage">
+                      Archive
+                    </option>
+                    <option value="ArchiveDayIndexPage">
+                      Archive Day Index
+                    </option>
+                    <option value="ArchiveMonthIndexPage">
+                      Archive Month Index
+                    </option>
+                    <option value="ArchiveYearIndexPage">
+                      Archive Year Index
+                    </option>
+                    <option value="CustomFileNotFoundPage">
+                      Custom File Not Found
+                    </option>
+                    <option value="EnvDumpPage">
+                      Env Dump
+                    </option>
+                    <option value="FileNotFoundPage">
+                      File Not Found
+                    </option>
+                    <option value="VirtualPage">
+                      Virtual
+                    </option>
+                  </select>
+                </p>
+                <p>
+                  <label for='page_status_id'>Status</label> <select id="page_status_id" name="page[status_id]">
+                    <option value="1" selected="selected">
+                      Draft
+                    </option>
+                    <option value="50">
+                      Reviewed
+                    </option>
+                    <option value="100">
+                      Published
+                    </option>
+                    <option value="101">
+                      Hidden
+                    </option>
+                  </select>
+                </p>
+              </div><span class='clear'>&nbsp;</span>
+              <p class="clear">
+                &nbsp;
+              </p>
+            </div>
+            <p class='buttons'>
+              <input class="button" name="commit" type="submit" value="Create Page" /> <input class="button" name="continue" type="submit" value="Save and Continue Editing" /> or <a href="http://www.example.com/admin/pages">Cancel</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -328,6 +328,22 @@ describe "click_button" do
       "response" => { "choices" => [{"selected" => "one", "name" => "foo"}, {"selected" => "two", "name" => "bar"}]})
     click_button
   end
+  
+  it "should correctly send a very complex set a parameters" do
+    with_html File.read(File.join(File.dirname(__FILE__), "radiant-page.html"))
+    webrat_session.should_receive(:post).with("/admin/pages", {
+      "page" => {
+        "title" => "My page", "slug" => "/", "breadcrumb" => "My page",
+        "description" => "", "keywords" => "", "status_id" => "1", 
+        "layout_id" => "", "class_name" => "",
+        "parts" => [
+          {"name" => "body", "content" => "Under construction", "filter_id" => ""},
+          {"name" => "extended", "content" => "foobar", "filter_id" => ""}
+        ]
+      }, "commit" => "Create Page"
+    })
+    click_button "Create Page"
+  end
 
   it "should not send default unchecked fields" do
     with_html <<-HTML
