@@ -304,6 +304,31 @@ describe "click_button" do
     click_button
   end
 
+  it "should correctly send deeply-nested arrayed parameters" do
+    with_html <<-HTML
+      <html>
+      <form method="post" action="/login">
+        <input type="checkbox" name="options[]" value="burger" checked="checked" />
+        <input type="radio" name="options[]" value="fries" checked="checked" />
+        <input type="text" name="options[]" value="soda" />
+        <!-- Same value appearing twice -->
+        <input type="text" name="options[]" value="soda" />
+        <input type="hidden" name="options[]" value="dessert" />
+        <input type="hidden" name="response[choices][][selected]" value="one" />
+        <input type="hidden" name="response[choices][][name]" value="foo" />
+        <!-- Same value appearing twice -->
+        <input type="hidden" name="response[choices][][selected]" value="two" />
+        <input type="hidden" name="response[choices][][name]" value="bar">
+        <input type="submit" />
+      </form>
+      </html>
+    HTML
+    webrat_session.should_receive(:post).with("/login",
+      "options"  => ["burger", "fries", "soda", "soda", "dessert"],
+      "response" => { "choices" => [{"selected" => "one", "name" => "foo"}, {"selected" => "two", "name" => "bar"}]})
+    click_button
+  end
+
   it "should not send default unchecked fields" do
     with_html <<-HTML
       <html>
@@ -425,7 +450,7 @@ describe "click_button" do
     webrat_session.should_receive(:get).with("/login", "user" => {"email" => ""})
     click_button
   end
-  
+
   it "should recognize button tags" do
     with_html <<-HTML
       <html>
@@ -448,9 +473,9 @@ describe "click_button" do
       </html>
     HTML
     webrat_session.should_receive(:get)
-    click_button  
+    click_button
   end
-  
+
   it "should recognize image button tags" do
     with_html <<-HTML
       <html>
