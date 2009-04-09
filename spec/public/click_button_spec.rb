@@ -335,7 +335,8 @@ describe "click_button" do
       "page" => {
         "title" => "My page", "slug" => "/", "breadcrumb" => "My page",
         "description" => "", "keywords" => "", "status_id" => "1", 
-        "layout_id" => "", "class_name" => "",
+        "layout_id" => "", "class_name" => "", "parent_id" => "",
+        "lock_version" => "0",
         "parts" => [
           {"name" => "body", "content" => "Under construction", "filter_id" => ""},
           {"name" => "extended", "content" => "foobar", "filter_id" => ""}

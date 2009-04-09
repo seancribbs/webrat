@@ -13,11 +13,11 @@ module Webrat
     attr_reader :value
     
     def self.xpath_search
-      [".//button", ".//input", ".//textarea", ".//select"]
+      [".//button|.//input|.//textarea|.//select"]
     end
 
     def self.xpath_search_excluding_hidden
-      [".//button", ".//input[ @type != 'hidden']", ".//textarea", ".//select"]
+      [".//button|.//input[ @type != 'hidden']|.//textarea|.//select"]
     end
     
     def self.field_classes
